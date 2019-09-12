@@ -1,5 +1,3 @@
 # tateti
 
-Este es el TATETI
-Nayla, Alva y Axel
-sdfoiuio
+Este es el TATETI hecho por Nayla, Alva y Axel.
