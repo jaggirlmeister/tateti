@@ -83,6 +83,17 @@ function buildTable()
     count=1;
 }
 
+function generateCol()
+{
+    var txt ="";
+    for(var j = 0; j < 3; j++)
+    {
+        txt += "<td id='col" +count+"' class='pointingActive' onclick='putSymbol("+count+")'></td>";    
+        count++;
+    }
+    return txt;
+}
+
 function closeGame()
 {
     flagGaming = true;
@@ -103,18 +114,6 @@ function restartGame()
     tableGame = [ [-1, -2, -3], [-4, -5, -6], [-7, -8, -9]];
     buildTable();
     $("#winner").remove();
-}
-
-
-function generateCol()
-{
-    var txt ="";
-    for(var j = 0; j < 3; j++)
-    {
-        txt += "<td id='col" +count+"' class='pointingActive' onclick='putSymbol("+count+")'></td>";    
-        count++;
-    }
-    return txt;
 }
 
 function putSymbol(num)
