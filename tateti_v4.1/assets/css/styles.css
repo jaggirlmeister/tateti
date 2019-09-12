@@ -1,0 +1,226 @@
+/*font-family: 'Rajdhani', sans-serif;*/
+*
+{
+    font-family: 'Rajdhani', sans-serif;;
+}
+
+.none
+{
+    display: none;  
+}
+
+body{
+    background-color: black;
+}
+
+#msgBox, #winner
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    z-index: 1;
+}
+
+#msgBox div, #winner div
+{
+    top: 43%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    background: #fafafa;
+}
+
+#winner div{
+    width: 50%;
+    height: 50%;
+    color: white;
+    background-size: cover;
+}
+
+#winner button{
+    margin: 0;
+    position: absolute;
+    bottom: 4em;
+    transform: inherit;
+    /*font-size: 0.5em;*/
+}
+
+#winner button:last-child
+{
+    bottom: 0em;
+   /* font-size: 1em;*/
+}
+
+#winner div p{
+    font-size: 40px;
+}
+
+td
+{
+    border: 5px solid #979696;
+    padding: 10px;
+}
+
+table
+{
+    border-collapse: collapse;
+    margin: 0 auto;
+    transform: scalez(3) rotate(-10deg) rotate3d(1, 1, 0, -43deg);
+    perspective-origin: bottom;
+}
+
+td
+{
+    cursor: pointer;
+}
+
+ td
+{
+    width: 120px;
+    height: 120px;
+}
+
+img:active
+{
+    opacity: 0.5;
+}
+
+tr:first-child td
+{
+    border-top: none;
+}
+
+tr td:first-child
+{
+    border-left: none;
+}
+
+tr td:last-child
+{
+    border-right: none;
+}
+
+tr:last-child td
+{
+    border-bottom: none;
+}
+
+#content
+{
+    background: #fbfbfb;
+    width: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 1em;
+    height: 660px;
+    background-image: url(../images/fondo.jpg);
+    background-size: cover;
+}
+
+#game{
+    text-align: center;
+}
+
+#game h1{
+    font-size: 100px;
+    color: #4c4c4c;
+    margin-top: 0.5em;
+}
+
+table{
+    margin: 0 auto;
+}
+
+#msgBox div{
+    padding: 2em;
+}
+
+#msgBox h3{
+    font-size: 30px;
+    margin-top: 0;
+}
+
+#msgBox p{
+    font-size: 19px;
+}
+
+button {
+    background-color: #1eaba7;
+    color: white;
+    font-size: 20px;
+    border: none;
+    padding: 1em;
+    border-radius: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: #27d2cd;
+}
+
+
+#startButton{
+    margin: 0;
+}
+
+#players{
+    font-size: 25px;
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1em;
+}
+
+address{
+    text-align: center;
+    padding-top: 0.8em;
+    color: white;
+    font-size: 19px;
+}
+
+img{
+    padding: 0;
+    margin: 0;
+    width: 100px;
+}
+
+#handPlayer{
+    position: absolute;
+    width: 60px;
+    left: -60px;
+    transition: 1s ease-in-out;
+}
+
+.pointing1{
+    top: 12px;
+}
+
+.pointing2{
+    top: 68px;
+    filter: hue-rotate(155deg);
+}
+
+.pointingActive:hover
+{
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.cellWinner1
+{
+    background-color: #d1ccff;
+}
+
+.cellWinner2
+{
+    background-color: #ffcccc;
+}
+
+span{
+    padding-left: 1em;
+    font-weight: bold;
+}
