@@ -5,6 +5,7 @@ var winPl1 = 0;
 var winPl2 = 0;
 var flagGaming = true; //Si alguien gana, que no se pueda hacer más clicks en el tablero pasandolo a FALSE
 var winnerCells = []; //Cuando un jugador gana, sus celdas ganadoras se colorean
+var savingCells = [];
 
 function generateLogin()
 {
@@ -88,6 +89,7 @@ function generateCol()
     var txt ="";
     for(var j = 0; j < 3; j++)
     {
+        
         txt += "<td id='col" +count+"' class='pointingActive' onclick='putSymbol("+count+")'></td>";    
         count++;
     }
@@ -155,7 +157,8 @@ function putSymbol(num)
             {
                 col.append('<img src="assets/images/o.svg" alt="O">');
             }
-    
+            //NUEVO
+            localStorage.setItem('matrixPos', tableGame);
             validateWin();
         }
     }
