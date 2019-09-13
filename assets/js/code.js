@@ -11,6 +11,27 @@ function generateLogin()
 {
     $("#game").append("<h1>TA-TE-TI</h1>");
     $("#game").append("<button onclick='buildGame()'>Empezar juego</button>");
+    //NUEVO
+    if(localStorage.length > 0)
+    {
+        savingCells = localStorage.getItem('matrixPos');
+        savingCells = savingCells.split(',');
+        reloadTableData();
+    }
+    alert(savingCells);
+}
+
+function reloadTableData()
+{
+    var counting=0;
+    for(i=0;i<3;i++)
+    {
+        for(j=0;j<3;j++)
+        {
+            tableGame[i][j] = savingCells[counting];
+            counting++;
+        }
+    }
 }
 
 function instruc() //Show instructions
@@ -89,8 +110,20 @@ function generateCol()
     var txt ="";
     for(var j = 0; j < 3; j++)
     {
-        
-        txt += "<td id='col" +count+"' class='pointingActive' onclick='putSymbol("+count+")'></td>";    
+        //NUEVO
+        if(savingCells[count] == 0)
+        {
+            txt += "<td id='col" +count+"'><img src='assets/images/x.svg' alt='mark X'></td>";
+        }
+        else if(savingCells[count] == 1)
+        {
+            txt += "<td id='col" +count+"'><img src='assets/images/o.svg' alt='mark O'></td>";    
+
+        }
+        else
+        {
+            txt += "<td id='col" +count+"' class='pointingActive' onclick='putSymbol("+count+")'></td>";    
+        }
         count++;
     }
     return txt;
@@ -151,11 +184,11 @@ function putSymbol(num)
             if(player == 0)
             {
                 
-                col.append('<img src="assets/images/x.svg" alt="X">');
+                col.append('<img src="assets/images/x.svg" alt="mark X">');
             }
             else
             {
-                col.append('<img src="assets/images/o.svg" alt="O">');
+                col.append('<img src="assets/images/o.svg" alt="mark O">');
             }
             //NUEVO
             localStorage.setItem('matrixPos', tableGame);
