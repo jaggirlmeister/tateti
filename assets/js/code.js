@@ -18,7 +18,6 @@ function generateLogin()
         savingCells = savingCells.split(',');
         reloadTableData();
     }
-    alert(savingCells);
 }
 
 function reloadTableData()
@@ -28,7 +27,7 @@ function reloadTableData()
     {
         for(j=0;j<3;j++)
         {
-            tableGame[i][j] = savingCells[counting];
+            tableGame[i][j] = parseInt(savingCells[counting]);
             counting++;
         }
     }
@@ -111,6 +110,7 @@ function generateCol()
     for(var j = 0; j < 3; j++)
     {
         //NUEVO
+        alert(savingCells);
         if(savingCells[count] == 0)
         {
             txt += "<td id='col" +count+"'><img src='assets/images/x.svg' alt='mark X'></td>";
@@ -131,6 +131,7 @@ function generateCol()
 
 function closeGame()
 {
+    localStorage.removeItem('matrixPos');
     flagGaming = true;
     $("#game").empty();
     winPl1 = 0;
