@@ -11,7 +11,6 @@ function generateLogin()
 {
     $("#game").append("<h1>TA-TE-TI</h1>");
     $("#game").append("<button onclick='buildGame()'>Empezar juego</button>");
-    //NUEVO
     if(localStorage.length > 0)
     {
         savingCells = localStorage.getItem('matrixPos');
@@ -46,7 +45,7 @@ function areYouSure(num)
     //if Num = 0 is close | 1 = restart
     if(num == 0)
     {
-        $("#msgBox").append('<div><h3>¿Seguro que quiere salir?</h3><button onclick="msgBoxDone(0)">Sí, deseo salir</button><button onclick="msgBoxDone()">No, quiero seguir jugando</button></div>');
+        $("#msgBox").append('<div><h3>¿Seguro que quiere salir? Perderá sus datos.</h3><button onclick="msgBoxDone(0)">Sí, deseo salir</button><button onclick="msgBoxDone()">No, quiero seguir jugando</button></div>');
     }
     else
     {
@@ -190,7 +189,6 @@ function putSymbol(num)
             {
                 col.append('<img src="assets/images/o.svg" alt="mark O">');
             }
-            //NUEVO
             localStorage.setItem('matrixPos', tableGame);
             validateWin();
         }
@@ -278,6 +276,7 @@ function validateWin()
         classWinner = (1+ player);
         if(player == 0)
         {
+            //LOCALSTORAGE: Podríamos meter aquí los localStorage de victorias de jugadores
             winPl1++;
             imgPlayerWin = "url('assets/images/win_x.jpg')";
         }
