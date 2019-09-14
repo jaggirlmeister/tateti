@@ -98,24 +98,23 @@ function buildTable()
     for(var i=0; i < 3; i++) //rows
     {
         //En cada fila generada, recibe 3 columnas generadas en la función "generateCol"
-        $("#ttt table").append("<tr>"+generateCol()+"</tr>");
+        $("#ttt table").append("<tr>"+generateCol(i)+"</tr>");
     }
     //Cuando se termina de construir la tabla, vuelvo el contador 1 para cuando se necesite reconstruir la tabla, las celdas sigan siendo del 1 a 9
     count=1;
 }
 
-function generateCol()
+function generateCol(row)
 {
     var txt ="";
     for(var j = 0; j < 3; j++)
     {
-        //NUEVO
-        alert(savingCells);
-        if(savingCells[count] == 0)
+
+        if(tableGame[j][row] == 0)
         {
             txt += "<td id='col" +count+"'><img src='assets/images/x.svg' alt='mark X'></td>";
         }
-        else if(savingCells[count] == 1)
+        else if(tableGame[j][row] == 1)
         {
             txt += "<td id='col" +count+"'><img src='assets/images/o.svg' alt='mark O'></td>";    
 
