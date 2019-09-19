@@ -10,12 +10,31 @@ var savingCells = [];
 function generateLogin()
 {
     $("#game").append("<h1>TA-TE-TI</h1>");
-    $("#game").append("<button onclick='buildGame()'>Empezar juego</button>");
+    $("#game").append("<button onclick='buildGame(0)'>Empezar nuevo juego</button>");
+
     if(localStorage.length > 0)
     {
+
+        $("#game").append("<button onclick='buildGame(1)'>Continuar juego</button>");
+
+        //table
         savingCells = localStorage.getItem('matrixPos');
         savingCells = savingCells.split(',');
         reloadTableData();
+        //playersPoints
+        winPl1= parseInt(localStorage.getItem('player1PointsTtt'));
+        winPl2= parseInt(localStorage.getItem('player2PointsTtt'));
+        //turn
+        player= parseInt(localStorage.getItem('playerTurnTtt'));
+        flagGaming= localStorage.getItem('clickTtt');
+        if(flagGaming == 'true')
+        {
+            flagGaming = true; // true no es lo mismo que 'true', por eso. Ahora que hice que false y true sean booleans y no textos, funciono
+        }
+        else
+        {
+            flagGaming = false;
+        }
     }
 }
 
@@ -81,8 +100,11 @@ function buildButtons()
     $("#btns").append("<button onclick='areYouSure(0)'>Salir</button>");
 }
 
-function buildGame()
+function buildGame(num)
 {
+    if(num==0){
+        restartGame(num);
+    }
     $("#game").empty();
     //Create <table>
     $("#game").append("<div id='ttt'></div>");
@@ -130,6 +152,9 @@ function generateCol(row)
 function closeGame()
 {
     localStorage.removeItem('matrixPos');
+    localStorage.removeItem('playerTurnTtt');
+    localStorage.removeItem('player1PointsTtt');
+    localStorage.removeItem('player2PointsTtt');
     flagGaming = true;
     $("#game").empty();
     winPl1 = 0;
@@ -142,6 +167,7 @@ function closeGame()
 
 function restartGame()
 {
+    
     flagGaming = true;
     $("#ttt").empty();
     player = 0;
@@ -264,6 +290,7 @@ function validateWin()
         {
             changePlayer();
             $("#winner").remove();
+            localStorage.setItem('playerTurnTtt',player);
         }
 
     }
@@ -271,6 +298,7 @@ function validateWin()
     {
         var classWinner;
         flagGaming = false;
+        localStorage.setItem('clickTtt',flagGaming);
         let imgPlayerWin;
         //Player winner! *claps claps*
         classWinner = (1+ player);
@@ -279,11 +307,13 @@ function validateWin()
             //LOCALSTORAGE: Podríamos meter aquí los localStorage de victorias de jugadores
             winPl1++;
             imgPlayerWin = "url('assets/images/win_x.jpg')";
+            localStorage.setItem('player1PointsTtt',winPl1);
         }
         else
         {
             winPl2++;
             imgPlayerWin = "url('assets/images/win_o.jpg')";
+            localStorage.setItem('player2PointsTtt',winPl2);
             changePlayer();
         }
         for(i=0; i < 3; i++)
@@ -296,6 +326,7 @@ function validateWin()
 
     }
     //No one wins
+
 }
 
 
