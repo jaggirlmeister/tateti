@@ -32,6 +32,8 @@ function generateLogin()
         {
             flagGaming = false;
         }
+        winnerCells = localStorage.getItem('cellsWinTtt');
+        winnerCells = winnerCells.split(',');
     }
 }
 
@@ -117,6 +119,10 @@ function buildTable()
     }
     //Cuando se termina de construir la tabla, vuelvo el contador 1 para cuando se necesite reconstruir la tabla, las celdas sigan siendo del 1 a 9
     count=1;
+    if(localStorage.length > 0)
+    {
+        paintCellsWin();
+    }
 }
 
 function generateCol(row)
@@ -150,6 +156,7 @@ function closeGame()
     localStorage.removeItem('player1PointsTtt');
     localStorage.removeItem('player2PointsTtt');
     localStorage.removeItem('clickTtt');
+    localStorage.removeItem('cellsWinTtt');
     flagGaming = true;
     $("#game").empty();
     winPl1 = 0;
@@ -162,6 +169,7 @@ function closeGame()
 
 function restartGame()
 {
+    localStorage.removeItem('cellsWinTtt');
     flagGaming = true;
     $("#ttt").empty();
     player = 0;
@@ -310,11 +318,8 @@ function validateWin()
         
         localStorage.setItem('player1PointsTtt',winPl1);
         localStorage.setItem('player2PointsTtt',winPl2);
-        
-        for(i=0; i < 3; i++)
-        {
-            $("#col"+winnerCells[i]).addClass('cellWinner'+classWinner);
-        }
+        paintCellsWin();
+        localStorage.setItem('cellsWinTtt', winnerCells);
         showPoints();
         $("#winner").append('<div><p>¡Jugador ' + (player + 1) + ' gana!</p><button onclick="javascript:$(\'#winner\').remove()">Ver el tablero</button><button onclick="restartGame()">Jugar de nuevo</button></div>');
         $("#winner div").css("background-image",imgPlayerWin);
@@ -364,4 +369,12 @@ function tieGame()
         }
     }
     return tie;
+}
+
+function paintCellsWin()
+{
+    for(i=0; i < 3; i++)
+    {
+        $("#col"+winnerCells[i]).addClass('cellWinner'+classWinner);
+    }
 }
