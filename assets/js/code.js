@@ -7,11 +7,8 @@ var flagGaming = true; //Si alguien gana, que no se pueda hacer más clicks en e
 var winnerCells = []; //Cuando un jugador gana, sus celdas ganadoras se colorean
 var savingCells = [];
 
-function generateLogin()
+function loadLocalStorage()
 {
-    $("#game").append("<h1>TA-TE-TI</h1>");
-    $("#game").append("<button onclick='buildGame()'>Empezar juego</button>");
-
     if(localStorage.length > 0)
     {
         winPl1= parseInt(localStorage.getItem('player1PointsTtt'));
@@ -35,10 +32,23 @@ function generateLogin()
         }
         //table
         savingCells = localStorage.getItem('matrixPos');
-        savingCells = savingCells.split(',');
-        reloadTableData();
-        //playersPoints
+        if(savingCells !== "undefined" && savingCells !== null)
+        {
+            savingCells = savingCells.split(',');
+            reloadTableData();
+        }
+        buildGame();
     }
+    else
+    {
+        generateLogin();
+    }
+}
+
+function generateLogin()
+{
+    $("#game").append("<h1>TA-TE-TI</h1>");
+    $("#game").append("<button onclick='buildGame()'>Empezar juego</button>");
 }
 
 function reloadTableData()
@@ -96,20 +106,34 @@ function msgBoxDone(num)
     }
 }
 
-function buildButtons()
+function buildInfo(num)
 {
-    $("#game").append("<div id='info'></div>");
+    if(num == 0)
+    {
+        $("#game").append("<div id='info'></div>");
+    }
     var classHand = 1;
     if(player == 1)
     {
         classHand = 2;
     }
     $("#info").append("<div id='players'><img id='handPlayer' class='pointing"+classHand+"' src='assets/images/hand.png' alt='hand'><p id='point1'></p><p id='point2'></p></div>");
+    if(flagGaming == false)
+    {
+        $("#handPlayer").remove();
+    }
+}
+
+function buildButtons()
+{
     $("#game").append("<div id='btns'></div>");
     $("#btns").append("<button onclick='areYouSure(1)'>Reiniciar</button>");
     $("#btns").append("<button onclick='instruc()'>Instrucciones</button>");
+    $("#btns").append("<button onclick='restartPoints()'>Reiniciar puntos</button>")
     $("#btns").append("<button onclick='areYouSure(0)'>Salir</button>");
 }
+
+
 
 function buildGame()
 {
@@ -117,6 +141,7 @@ function buildGame()
     //Create <table>
     $("#game").append("<div id='ttt'></div>");
     buildTable();
+    buildInfo(0);
     buildButtons();
     showPoints();
 }
@@ -146,16 +171,16 @@ function generateCol(row)
 
         if(tableGame[j][row] == 0)
         {
-            txt += "<td id='col" +count+"'><img src='assets/images/x.svg' class='dontClick' alt='mark X'></td>";
+            txt += "<td id='col" +count+"' class='dontClick'><img src='assets/images/x.svg' alt='mark X'></td>";
         }
         else if(tableGame[j][row] == 1)
         {
-            txt += "<td id='col" +count+"'><img src='assets/images/o.svg' alt='mark O'></td>";    
+            txt += "<td id='col" +count+"' class='dontClick'><img src='assets/images/o.svg' alt='mark O'></td>";    
 
         }
         else
         {
-            txt += "<td id='col" +count+"' class='pointingActive' class='dontClick' onclick='putSymbol("+count+")'></td>";    
+            txt += "<td id='col" +count+"' class='pointingActive' onclick='putSymbol("+count+")'></td>";    
         }
         count++;
     }
@@ -195,6 +220,9 @@ function restartGame(num)
     player = 0;
     tableGame = [ [-1, -2, -3], [-4, -5, -6], [-7, -8, -9]];
     buildTable();
+    $("#info").empty();
+    buildInfo(1);
+    showPoints();
     $("#winner").remove();
 }
 
@@ -360,6 +388,13 @@ function showPoints()
     $("#point2").append("Jugador Dos: <span>" + winPl2+"</span>");
 }
 
+function restartPoints()
+{
+    winPl1 = 0;
+    winPl2 = 0;
+    showPoints();
+}
+
 function changePlayer()
 {
     if(player == 0)
@@ -413,6 +448,6 @@ function noOneIsClickable()
     for(i=1;i<10;i++)
     {
         $('#col'+i).removeClass('pointingActive');
-        $('#col'+i).removeClass('dontClick');
+        $('#col'+i).addClass('dontClick');
     }
 }
