@@ -182,7 +182,6 @@ function restartGame()
 {
     localStorage.removeItem('cellsWinTtt');
     flagGaming = true;
-    localStorage.removeItem('clickTtt');
     $("#ttt").empty();
     player = 0;
     tableGame = [ [-1, -2, -3], [-4, -5, -6], [-7, -8, -9]];
