@@ -152,12 +152,13 @@ button {
     color: white;
     font-size: 20px;
     border: none;
-    padding: 1em;
+    padding: 0.7em;
     border-radius: 0.5em;
     margin-right: 0.5em;
     margin-left: 0.5em;
     font-weight: bold;
     cursor: pointer;
+    filter: drop-shadow(1px 1px 3px #444);
 }
 
 button:hover{
