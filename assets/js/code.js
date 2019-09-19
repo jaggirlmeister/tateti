@@ -189,13 +189,7 @@ function generateCol(row)
 
 function closeGame()
 {
-    localStorage.removeItem('matrixPos');
-    localStorage.removeItem('playerTurnTtt');
-    localStorage.removeItem('player1PointsTtt');
-    localStorage.removeItem('player2PointsTtt');
-    localStorage.removeItem('clickTtt');
-    localStorage.removeItem('cellsWinTtt');
-    localStorage.removeItem('gameClean');
+    localStorage.clear();
     flagGaming = true;
     $("#game").empty();
     winPl1 = 0;
