@@ -87,6 +87,8 @@ function msgBoxDone(num)
     {
         restartGame();
         localStorage.setItem('gameClean', 'true');
+        localStorage.setItem('clickTtt', 'true');
+        localStorage.removeItem('matrixPos');
     }
     else if (num == 0)
     {
@@ -178,10 +180,16 @@ function closeGame()
     generateLogin();
 }
 
-function restartGame()
+function restartGame(num)
 {
+    if(num==1)
+    {
+        localStorage.setItem('clickTtt', 'true');
+        localStorage.setItem('gameClean', 'true');
+        localStorage.removeItem('matrixPos');
+    }
     localStorage.removeItem('cellsWinTtt');
-    flagGaming = true;
+    flagGaming = true;  
     $("#ttt").empty();
     player = 0;
     tableGame = [ [-1, -2, -3], [-4, -5, -6], [-7, -8, -9]];
@@ -194,6 +202,7 @@ function putSymbol(num)
     if(flagGaming)
     {
         saveLocalPoints();
+        localStorage.setItem('gameClean', 'false');
         var col = $('#col'+num);
         if(col.is(':empty') ) { 
             col.removeClass('pointingActive');
@@ -297,7 +306,7 @@ function validateWin()
     {
         if(tieGame())
         {
-            $("#winner").append('<div><p>¡Empate!</p><button onclick="restartGame()">Jugar de nuevo</button></div>');
+            $("#winner").append('<div><p>¡Empate!</p><button onclick="restartGame(1)">Jugar de nuevo</button></div>');
             $("#winner div").css("background-image","url('assets/images/tie_xo.jpg')");
         }
         else
@@ -331,7 +340,7 @@ function validateWin()
         
         localStorage.setItem('cellsWinTtt', winnerCells);
         showPoints();
-        $("#winner").append('<div><p>¡Jugador ' + (player + 1) + ' gana!</p><button onclick="javascript:$(\'#winner\').remove()">Ver el tablero</button><button onclick="restartGame()">Jugar de nuevo</button></div>');
+        $("#winner").append('<div><p>¡Jugador ' + (player + 1) + ' gana!</p><button onclick="javascript:$(\'#winner\').remove()">Ver el tablero</button><button onclick="restartGame(1)">Jugar de nuevo</button></div>');
         $("#winner div").css("background-image",imgPlayerWin);
 
     }
