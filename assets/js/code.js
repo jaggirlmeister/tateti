@@ -14,26 +14,29 @@ function generateLogin()
 
     if(localStorage.length > 0)
     {
+        winPl1= parseInt(localStorage.getItem('player1PointsTtt'));
+        winPl2= parseInt(localStorage.getItem('player2PointsTtt'));
+        //turn
+        player= parseInt(localStorage.getItem('playerTurnTtt'));
+        if(localStorage.getItem('gameClean') != 'true')
+        {
+            flagGaming= localStorage.getItem('clickTtt');
+            if(flagGaming == 'true')
+            {
+                flagGaming = true; // true no es lo mismo que 'true', por eso. Ahora que hice que false y true sean booleans y no textos, funciono
+            }
+            else if(flagGaming == 'false')
+            {
+                flagGaming = false;
+                winnerCells = localStorage.getItem('cellsWinTtt');
+                winnerCells = winnerCells.split(',');
+            }
+        }
         //table
         savingCells = localStorage.getItem('matrixPos');
         savingCells = savingCells.split(',');
         reloadTableData();
         //playersPoints
-        winPl1= parseInt(localStorage.getItem('player1PointsTtt'));
-        winPl2= parseInt(localStorage.getItem('player2PointsTtt'));
-        //turn
-        player= parseInt(localStorage.getItem('playerTurnTtt'));
-        flagGaming= localStorage.getItem('clickTtt');
-        if(flagGaming == 'true')
-        {
-            flagGaming = true; // true no es lo mismo que 'true', por eso. Ahora que hice que false y true sean booleans y no textos, funciono
-        }
-        else
-        {
-            flagGaming = false;
-            winnerCells = localStorage.getItem('cellsWinTtt');
-            winnerCells = winnerCells.split(',');
-        }
     }
 }
 
@@ -82,6 +85,7 @@ function msgBoxDone(num)
     if(num == 1)
     {
         restartGame();
+        localStorage.setItem('gameClean', 'true');
     }
     else if (num == 0)
     {
@@ -92,7 +96,12 @@ function msgBoxDone(num)
 function buildButtons()
 {
     $("#game").append("<div id='info'></div>");
-    $("#info").append("<div id='players'><img id='handPlayer' class='pointing1' src='assets/images/hand.png' alt='hand'><p id='point1'></p><p id='point2'></p></div>");
+    var classHand = 1;
+    if(player == 1)
+    {
+        classHand = 2;
+    }
+    $("#info").append("<div id='players'><img id='handPlayer' class='pointing"+classHand+"' src='assets/images/hand.png' alt='hand'><p id='point1'></p><p id='point2'></p></div>");
     $("#game").append("<div id='btns'></div>");
     $("#btns").append("<button onclick='areYouSure(1)'>Reiniciar</button>");
     $("#btns").append("<button onclick='instruc()'>Instrucciones</button>");
@@ -157,6 +166,7 @@ function closeGame()
     localStorage.removeItem('player2PointsTtt');
     localStorage.removeItem('clickTtt');
     localStorage.removeItem('cellsWinTtt');
+    localStorage.removeItem('gameClean');
     flagGaming = true;
     $("#game").empty();
     winPl1 = 0;
@@ -171,6 +181,7 @@ function restartGame()
 {
     localStorage.removeItem('cellsWinTtt');
     flagGaming = true;
+    localStorage.removeItem('clickTtt');
     $("#ttt").empty();
     player = 0;
     tableGame = [ [-1, -2, -3], [-4, -5, -6], [-7, -8, -9]];
@@ -301,6 +312,7 @@ function validateWin()
         flagGaming = false;
         let imgPlayerWin;
         //Player winner! *claps claps*
+        paintCellsWin();
         if(player == 0)
         {
             //LOCALSTORAGE: Podríamos meter aquí los localStorage de victorias de jugadores
@@ -316,7 +328,7 @@ function validateWin()
         
         localStorage.setItem('player1PointsTtt',winPl1);
         localStorage.setItem('player2PointsTtt',winPl2);
-        paintCellsWin();
+        
         localStorage.setItem('cellsWinTtt', winnerCells);
         showPoints();
         $("#winner").append('<div><p>¡Jugador ' + (player + 1) + ' gana!</p><button onclick="javascript:$(\'#winner\').remove()">Ver el tablero</button><button onclick="restartGame()">Jugar de nuevo</button></div>');
@@ -372,7 +384,7 @@ function tieGame()
 function paintCellsWin()
 {
     var classWinner;
-    classWinner = (1+ player);
+    classWinner = (1+player);
     for(i=0; i < 3; i++)
     {
         $("#col"+winnerCells[i]).addClass('cellWinner'+classWinner);
