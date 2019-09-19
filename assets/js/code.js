@@ -18,6 +18,7 @@ function generateLogin()
         winPl2= parseInt(localStorage.getItem('player2PointsTtt'));
         //turn
         player= parseInt(localStorage.getItem('playerTurnTtt'));
+
         if(localStorage.getItem('gameClean') != 'true')
         {
             flagGaming= localStorage.getItem('clickTtt');
@@ -193,6 +194,7 @@ function putSymbol(num)
 {
     if(flagGaming)
     {
+        saveLocalPoints();
         var col = $('#col'+num);
         if(col.is(':empty') ) { 
             col.removeClass('pointingActive');
@@ -325,9 +327,8 @@ function validateWin()
             imgPlayerWin = "url('assets/images/win_o.jpg')";
             changePlayer();
         }
-        
-        localStorage.setItem('player1PointsTtt',winPl1);
-        localStorage.setItem('player2PointsTtt',winPl2);
+
+        saveLocalPoints();
         
         localStorage.setItem('cellsWinTtt', winnerCells);
         showPoints();
@@ -389,4 +390,10 @@ function paintCellsWin()
     {
         $("#col"+winnerCells[i]).addClass('cellWinner'+classWinner);
     }
+}
+
+function saveLocalPoints()
+{
+    localStorage.setItem('player1PointsTtt',winPl1);
+    localStorage.setItem('player2PointsTtt',winPl2);
 }
