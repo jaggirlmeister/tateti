@@ -155,6 +155,7 @@ function closeGame()
     localStorage.removeItem('playerTurnTtt');
     localStorage.removeItem('player1PointsTtt');
     localStorage.removeItem('player2PointsTtt');
+    localStorage.removeItem('clickTtt');
     flagGaming = true;
     $("#game").empty();
     winPl1 = 0;
@@ -165,9 +166,13 @@ function closeGame()
     generateLogin();
 }
 
-function restartGame()
+function restartGame(num)
 {
-    
+    if(num == 0)
+    {
+        winPl1 = 0;
+        winPl2 = 0;
+    }
     flagGaming = true;
     $("#ttt").empty();
     player = 0;
@@ -307,15 +312,17 @@ function validateWin()
             //LOCALSTORAGE: Podríamos meter aquí los localStorage de victorias de jugadores
             winPl1++;
             imgPlayerWin = "url('assets/images/win_x.jpg')";
-            localStorage.setItem('player1PointsTtt',winPl1);
         }
         else
         {
             winPl2++;
             imgPlayerWin = "url('assets/images/win_o.jpg')";
-            localStorage.setItem('player2PointsTtt',winPl2);
             changePlayer();
         }
+        
+        localStorage.setItem('player1PointsTtt',winPl1);
+        localStorage.setItem('player2PointsTtt',winPl2);
+        
         for(i=0; i < 3; i++)
         {
             $("#col"+winnerCells[i]).addClass('cellWinner'+classWinner);
