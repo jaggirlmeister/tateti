@@ -10,13 +10,10 @@ var savingCells = [];
 function generateLogin()
 {
     $("#game").append("<h1>TA-TE-TI</h1>");
-    $("#game").append("<button onclick='buildGame(0)'>Empezar nuevo juego</button>");
+    $("#game").append("<button onclick='buildGame()'>Empezar juego</button>");
 
     if(localStorage.length > 0)
     {
-
-        $("#game").append("<button onclick='buildGame(1)'>Continuar juego</button>");
-
         //table
         savingCells = localStorage.getItem('matrixPos');
         savingCells = savingCells.split(',');
@@ -100,11 +97,8 @@ function buildButtons()
     $("#btns").append("<button onclick='areYouSure(0)'>Salir</button>");
 }
 
-function buildGame(num)
+function buildGame()
 {
-    if(num==0){
-        restartGame(num);
-    }
     $("#game").empty();
     //Create <table>
     $("#game").append("<div id='ttt'></div>");
@@ -166,13 +160,8 @@ function closeGame()
     generateLogin();
 }
 
-function restartGame(num)
+function restartGame()
 {
-    if(num == 0)
-    {
-        winPl1 = 0;
-        winPl2 = 0;
-    }
     flagGaming = true;
     $("#ttt").empty();
     player = 0;
@@ -303,7 +292,6 @@ function validateWin()
     {
         var classWinner;
         flagGaming = false;
-        localStorage.setItem('clickTtt',flagGaming);
         let imgPlayerWin;
         //Player winner! *claps claps*
         classWinner = (1+ player);
@@ -333,7 +321,7 @@ function validateWin()
 
     }
     //No one wins
-
+    localStorage.setItem('clickTtt',flagGaming);
 }
 
 
