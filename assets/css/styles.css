@@ -230,3 +230,23 @@ span{
     padding-left: 1em;
     font-weight: bold;
 }
+
+#btns button:last-child
+{
+    background-color: rgb(227, 52, 52);
+}
+
+#btns button:last-child:hover
+{
+    background-color: rgb(255, 87, 87);
+}
+
+#msgBox button:first-of-type
+{
+    filter: drop-shadow(1px 1px 3px #444);
+    background-color: rgb(227, 52, 52);
+}
+
+#msgBox button:first-of-type:hover{
+    background-color: rgb(255, 87, 87);
+}
