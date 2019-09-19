@@ -31,9 +31,9 @@ function generateLogin()
         else
         {
             flagGaming = false;
+            winnerCells = localStorage.getItem('cellsWinTtt');
+            winnerCells = winnerCells.split(',');
         }
-        winnerCells = localStorage.getItem('cellsWinTtt');
-        winnerCells = winnerCells.split(',');
     }
 }
 
@@ -119,7 +119,7 @@ function buildTable()
     }
     //Cuando se termina de construir la tabla, vuelvo el contador 1 para cuando se necesite reconstruir la tabla, las celdas sigan siendo del 1 a 9
     count=1;
-    if(localStorage.length > 0)
+    if(flagGaming == false)
     {
         paintCellsWin();
     }
@@ -298,11 +298,9 @@ function validateWin()
     }
     else
     {
-        var classWinner;
         flagGaming = false;
         let imgPlayerWin;
         //Player winner! *claps claps*
-        classWinner = (1+ player);
         if(player == 0)
         {
             //LOCALSTORAGE: Podríamos meter aquí los localStorage de victorias de jugadores
@@ -373,6 +371,8 @@ function tieGame()
 
 function paintCellsWin()
 {
+    var classWinner;
+    classWinner = (1+ player);
     for(i=0; i < 3; i++)
     {
         $("#col"+winnerCells[i]).addClass('cellWinner'+classWinner);
