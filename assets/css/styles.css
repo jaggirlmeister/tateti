@@ -210,6 +210,11 @@ img{
     background-color: rgba(0, 0, 0, 0.04);
 }
 
+.dontClick
+{
+    cursor: not-allowed;
+}
+
 .cellWinner1
 {
     background-color: #d1ccff;

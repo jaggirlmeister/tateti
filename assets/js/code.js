@@ -134,6 +134,7 @@ function buildTable()
     if(flagGaming == false)
     {
         paintCellsWin();
+        noOneIsClickable();
     }
 }
 
@@ -145,7 +146,7 @@ function generateCol(row)
 
         if(tableGame[j][row] == 0)
         {
-            txt += "<td id='col" +count+"'><img src='assets/images/x.svg' alt='mark X'></td>";
+            txt += "<td id='col" +count+"'><img src='assets/images/x.svg' class='dontClick' alt='mark X'></td>";
         }
         else if(tableGame[j][row] == 1)
         {
@@ -154,7 +155,7 @@ function generateCol(row)
         }
         else
         {
-            txt += "<td id='col" +count+"' class='pointingActive' onclick='putSymbol("+count+")'></td>";    
+            txt += "<td id='col" +count+"' class='pointingActive' class='dontClick' onclick='putSymbol("+count+")'></td>";    
         }
         count++;
     }
@@ -206,6 +207,7 @@ function putSymbol(num)
         var col = $('#col'+num);
         if(col.is(':empty') ) { 
             col.removeClass('pointingActive');
+            col.addClass('dontClick');
             //If its empty, put X or O
             //Put the number in the dimensional array matrix
             if(num == 1 || num == 4 || num == 7)
@@ -335,9 +337,9 @@ function validateWin()
             imgPlayerWin = "url('assets/images/win_o.jpg')";
             changePlayer();
         }
-
+        $("#handPlayer").remove();
+        noOneIsClickable();
         saveLocalPoints();
-        
         localStorage.setItem('cellsWinTtt', winnerCells);
         showPoints();
         $("#winner").append('<div><p>¡Jugador ' + (player + 1) + ' gana!</p><button onclick="javascript:$(\'#winner\').remove()">Ver el tablero</button><button onclick="restartGame(1)">Jugar de nuevo</button></div>');
@@ -404,4 +406,13 @@ function saveLocalPoints()
 {
     localStorage.setItem('player1PointsTtt',winPl1);
     localStorage.setItem('player2PointsTtt',winPl2);
+}
+
+function noOneIsClickable()
+{
+    for(i=1;i<10;i++)
+    {
+        $('#col'+i).removeClass('pointingActive');
+        $('#col'+i).removeClass('dontClick');
+    }
 }
