@@ -99,6 +99,7 @@ function msgBoxDone(num)
         localStorage.setItem('gameClean', 'true');
         localStorage.setItem('clickTtt', 'true');
         localStorage.removeItem('matrixPos');
+        saveLocalPoints();
     }
     else if (num == 0)
     {
@@ -386,6 +387,7 @@ function restartPoints()
 {
     winPl1 = 0;
     winPl2 = 0;
+    saveLocalPoints();
     showPoints();
 }
 
